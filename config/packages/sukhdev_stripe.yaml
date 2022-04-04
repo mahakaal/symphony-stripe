@@ -1,0 +1,4 @@
+sukhdev_stripe:
+  stripe:
+    api_key: ''
+    public_key: ''
