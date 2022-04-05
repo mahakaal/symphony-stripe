@@ -3,15 +3,16 @@
 namespace App\Sukhdev\StripeBundle\Entity;
 
 use Stripe\Customer;
+use Stripe\StripeClient;
 
 class StripeCustomerTranslator
 {
-    public static function fromJson(Customer $customer): StripeCustomer
+    public static function fromObject(Customer $customer, StripeClient $client): StripeCustomer
     {
         return new StripeCustomer(
             $customer->id,
-            $customer->name,
-            $customer->email
+            $customer->name ?: '',
+            $customer->email ?: ''
         );
     }
 

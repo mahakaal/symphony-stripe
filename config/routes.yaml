@@ -1,3 +1,8 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+
+stripe:
+  path: /stripe
+  controller: App\Controller\StripeExample::getAllCustomers
+  methods: GET

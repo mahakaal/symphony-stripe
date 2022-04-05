@@ -10,7 +10,7 @@ class StripePlanTranslator
     /**
      * @throws \Stripe\Exception\ApiErrorException
      */
-    public static function fromJson(Plan $plan, StripeClient $client): StripePlan
+    public static function fromObject(Plan $plan, StripeClient $client): StripePlan
     {
         $product = $client->products->retrieve($plan->product);
         return new StripePlan(

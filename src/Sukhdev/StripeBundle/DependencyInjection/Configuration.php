@@ -16,7 +16,6 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('stripe')
                     ->children()
                         ->scalarNode('api_key')->end()
-                        ->scalarNode('public_key')->end()
                     ->end()
                 ->end()
             ->end();

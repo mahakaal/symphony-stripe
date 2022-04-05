@@ -20,13 +20,12 @@ class SukhdevStripeExtension extends Extension
             $container,
             new FileLocator(__DIR__.'/../Resources/config')
         );
-        $loader->load('services.xml');
+        $loader->load('config.xml');
 
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
         $definition = $container->getDefinition('sukhdev.stripe.configuration');
-        $definition->replaceArgument(0, $config['stripe']['api_key']);
-        $definition->replaceArgument(1, $config['stripe']['public_key']);
+        $container->setParameter("api_key", $config['stripe']['api_key']);
     }
 }

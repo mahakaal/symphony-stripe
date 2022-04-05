@@ -1,0 +1,8 @@
+parameters:
+
+services:
+  App\Sukhdev\StripeBundle\Service\StripeService:
+    arguments:
+      $api_key: ''
+    autowire: true
+    public: true

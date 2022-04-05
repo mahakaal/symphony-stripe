@@ -12,19 +12,22 @@ use App\Sukhdev\StripeBundle\Service\Exceptions\CreateCustomerException;
 use App\Sukhdev\StripeBundle\Service\Exceptions\GetCustomerException;
 use App\Sukhdev\StripeBundle\Service\Exceptions\SymfonyStripeException;
 use App\Sukhdev\StripeBundle\Service\Exceptions\UpdateCustomerException;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class StripeService implements IStripeService
 {
     private LoggerInterface $logger;
     private StripeClient $stripeClient;
+    private $container;
 
     /**
      * @param LoggerInterface $logger
      */
-    public function __construct(LoggerInterface $logger)
+    public function __construct(LoggerInterface $logger, ContainerInterface $container)
     {
         $this->logger = $logger;
-        $this->stripeClient = new StripeClient();
+        $this->container = $container;
+        $this->stripeClient = new StripeClient($this->container->getParameter("api_key"));
     }
 
     /**
@@ -73,7 +76,11 @@ class StripeService implements IStripeService
     public function getListOfClients(?string $email): array
     {
         try {
-            $result = $this->stripeClient->customers->all(["email" => (!empty($email)) ? $email : ""]);
+            if (empty($email)) {
+                $result = $this->stripeClient->customers->all();
+            } else {
+                $result = $this->stripeClient->customers->all(['email' => $email]);
+            }
 
             return $this->map($result, StripeCustomerTranslator::class);
         } catch (ApiErrorException $e) {
@@ -166,7 +173,7 @@ class StripeService implements IStripeService
         $result = [];
 
         foreach($collection as $item) {
-            $result[] = $translator::toJson($item, $this->stripeClient);
+            $result[] = $translator::fromObject($item, $this->stripeClient);
         }
 
         return $result;

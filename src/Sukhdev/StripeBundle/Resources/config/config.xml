@@ -5,9 +5,12 @@
         https://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="sukhdev.stripe.configuration" class="Sukhdev\StripeBundle\Service\StripeService">
-            <argument></argument>
-            <argument></argument>
+        <defaults autowire="true" autoconfigure="true">
+        </defaults>
+        <service id="sukhdev.stripe.configuration"
+                 class="App\Sukhdev\StripeBundle\Service\StripeService"
+                 autowire="true"
+        >
         </service>
     </services>
 </container>
