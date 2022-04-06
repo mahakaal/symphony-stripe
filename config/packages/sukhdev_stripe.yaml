@@ -1,3 +1,6 @@
+parameters:
+  api_key: '%env(STRIPE_SECRET_KEY)%'
+
 sukhdev_stripe:
   stripe:
-    api_key: ''
+    api_key: '%api_key%'

@@ -29,7 +29,8 @@ class StripeExample extends AbstractController
     {
         try {
             return $this->render('plans.html.twig',[
-                'plans' => $stripeService->getPlansList()
+                'plans' => $stripeService->getPlansList(),
+                'type' => 'All'
             ]);
         } catch (GetCustomerException $e) {
             exit($e->getMessage());
