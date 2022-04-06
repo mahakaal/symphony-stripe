@@ -7,7 +7,9 @@ use App\Sukhdev\StripeBundle\Entity\StripePlan;
 
 interface IStripeService
 {
-    public function createClient(string $company, string $email): StripeCustomer;
+    public function createClient(string $company, string $email);
+
+    public function getCustomer(string $id): StripeCustomer;
 
     public function updateClient(string $company, string $customerId): void;
 

@@ -2,7 +2,27 @@
 #    path: /
 #    controller: App\Controller\DefaultController::index
 
-stripe:
-  path: /stripe
+customers:
+  path: /customers/{email<\s+>?}
   controller: App\Controller\StripeExample::getAllCustomers
+  methods: GET
+
+plans:
+  path: /plans
+  controller: App\Controller\StripeExample::getAllPlans
+  methods: GET
+
+active_plans:
+  path: /plans/active
+  controller: App\Controller\StripeExample::getAllActivePlans
+  methods: GET
+
+recurring_plans:
+  path: /plans/recurring
+  controller: App\Controller\StripeExample::getAllRecurringPlans
+  methods: GET
+
+recurring_active_plans:
+  path: /plans/recurring/active
+  controller: App\Controller\StripeExample::getAllActiveRecurringPlans
   methods: GET

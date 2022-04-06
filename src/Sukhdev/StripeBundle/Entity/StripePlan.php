@@ -22,7 +22,7 @@ class StripePlan
      * @param float $unitAmount
      */
     public function __construct(string $id, string $currency, string $productName,
-                                string $productDescription, string $type, bool $active, float $unitAmount)
+                                string $productDescription, string $type, bool $active, ?float $unitAmount)
     {
         $this->id = $id;
         $this->currency = $currency;
@@ -30,7 +30,7 @@ class StripePlan
         $this->productDescription = $productDescription;
         $this->type = $type;
         $this->active = $active;
-        $this->unitAmount = $unitAmount;
+        $this->unitAmount = $unitAmount?: 0.0;
     }
 
     /**

@@ -34,15 +34,32 @@ class StripeService implements IStripeService
      * @throws CreateCustomerException
      * @throws SymfonyStripeException
      */
-    public function createClient(string $company, string $email): StripeCustomer
+    public function createClient(string $company, string $email)
     {
         try {
             $result = $this->stripeClient->customers->create([
                 "email" => $email,
                 "name" => $company
             ]);
+        } catch (ApiErrorException $e) {
+            $this->logger->error("Create Customer failed because: " . $e->getMessage());
+            throw new CreateCustomerException("Create Customer failed because: " . $e->getMessage());
+        } catch (\Exception $e) {
+            $this->logger->error($e->getMessage());
+            throw new SymfonyStripeException("An error occured: ". $e->getMessage());
+        }
+    }
 
-            return StripeCustomerTranslator::fromJson($result);
+    /**
+     * @throws CreateCustomerException
+     * @throws SymfonyStripeException
+     */
+    public function getCustomer(string $id): StripeCustomer
+    {
+        try {
+            $result = $this->stripeClient->customers->retrieve($id, []);
+
+            return StripeCustomerTranslator::fromObject($result);
         } catch (ApiErrorException $e) {
             $this->logger->error("Create Customer failed because: " . $e->getMessage());
             throw new CreateCustomerException("Create Customer failed because: " . $e->getMessage());

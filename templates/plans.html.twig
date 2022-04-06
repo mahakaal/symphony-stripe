@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Plans - {{ type }}</title>
+        {# Run `composer require symfony/webpack-encore-bundle`
+           and uncomment the following Encore helpers to start using Symfony UX #}
+        {% block stylesheets %}
+            {#{{ encore_entry_link_tags('app') }}#}
+        {% endblock %}
+
+        {% block javascripts %}
+            {#{{ encore_entry_script_tags('app') }}#}
+        {% endblock %}
+    </head>
+    <body>
+        {% block body %}
+            <table>
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Currency</th>
+                    <th>Product</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Active</th>
+                    <th>Unit Amount</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for plan in plans %}
+                    <tr>
+                        <td>{{ plan.getId() }}</td>
+                        <td>{{ plan.getCurrency() }}</td>
+                        <td>{{ plan.getProductName() }}</td>
+                        <td>{{ plan.getProductDescription() }}</td>
+                        <td>{{ plan.getType() }}</td>
+                        <td>{{ plan.isActive() ? 'true' : 'false' }}</td>
+                        <td>{{ plan.getUnitAmount()|number_format(2, ',', '.') }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endblock %}
+    </body>
+</html>
