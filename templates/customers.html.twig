@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Customers</title>
+        {# Run `composer require symfony/webpack-encore-bundle`
+           and uncomment the following Encore helpers to start using Symfony UX #}
+        {% block stylesheets %}
+            {#{{ encore_entry_link_tags('app') }}#}
+        {% endblock %}
+
+        {% block javascripts %}
+            {#{{ encore_entry_script_tags('app') }}#}
+        {% endblock %}
+    </head>
+    <body>
+        {% block body %}
+            <table>
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Company</th>
+                    <th>E-Mail</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for customer in customers %}
+                    <tr>
+                        <td>{{ customer.getId() }}</td>
+                        <td>{{ customer.getCompany() }}</td>
+                        <td>{{ customer.getEmail() }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endblock %}
+    </body>
+</html>
